@@ -1,0 +1,213 @@
+<WL5G3N0:definitions name="GenericCURGatewayWS"
+	targetNamespace="http://www.vodacom.co.za/" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:WL5G3N1="http://www.vodacom.co.za/" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/soap/">
+	<WL5G3N0:types>
+		<xsd:schema xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+			xmlns:tns="http://www.vodacom.co.za/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="java:net.voda.io" schemaLocation="AdapterResponseType.xsd" />
+		</xsd:schema>
+		<xsd:schema xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+			xmlns:tns="http://www.vodacom.co.za/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="java:net.voda.curgw.io"
+				schemaLocation="CURAttributeType.xsd" />
+		</xsd:schema>
+		<xsd:schema xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+			xmlns:tns="http://www.vodacom.co.za/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="http://www.vodacom.co.za/"
+				schemaLocation="ModityCURAttributeType.xsd" />
+		</xsd:schema>
+	</WL5G3N0:types>
+	<WL5G3N0:message name="getCurAttributes">
+		<WL5G3N0:part element="WL5G3N1:getCurAttributes" name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="getCurAttributesResponse">
+		<WL5G3N0:part element="WL5G3N1:getCurAttributesResponse"
+			name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="CURGatewaySystemException">
+		<WL5G3N0:part element="WL5G3N1:CURGatewaySystemException"
+			name="fault" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="modifyCURAttributes">
+		<WL5G3N0:part element="WL5G3N1:modifyCURAttributes" name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="modifyCURAttributesResponse">
+		<WL5G3N0:part element="WL5G3N1:modifyCURAttributesResponse"
+			name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="refreshAllPools">
+		<WL5G3N0:part element="WL5G3N1:refreshAllPools" name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="refreshAllPoolsResponse">
+		<WL5G3N0:part element="WL5G3N1:refreshAllPoolsResponse"
+			name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="refreshProfPool">
+		<WL5G3N0:part element="WL5G3N1:refreshProfPool" name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="refreshProfPoolResponse">
+		<WL5G3N0:part element="WL5G3N1:refreshProfPoolResponse"
+			name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="refreshAuthPool">
+		<WL5G3N0:part element="WL5G3N1:refreshAuthPool" name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="refreshAuthPoolResponse">
+		<WL5G3N0:part element="WL5G3N1:refreshAuthPoolResponse"
+			name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="refreshIdvPool">
+		<WL5G3N0:part element="WL5G3N1:refreshIdvPool" name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="refreshIdvPoolResponse">
+		<WL5G3N0:part element="WL5G3N1:refreshIdvPoolResponse"
+			name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="createCURObject">
+		<WL5G3N0:part element="WL5G3N1:createCURObject" name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="createCURObjectResponse">
+		<WL5G3N0:part element="WL5G3N1:createCURObjectResponse"
+			name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="deleteCURObject">
+		<WL5G3N0:part element="WL5G3N1:deleteCURObject" name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:message name="deleteCURObjectResponse">
+		<WL5G3N0:part element="WL5G3N1:deleteCURObjectResponse"
+			name="parameters" />
+	</WL5G3N0:message>
+	<WL5G3N0:portType name="GenericCURGatewayWSPort">
+		<WL5G3N0:operation name="getCurAttributes">
+			<WL5G3N0:input message="WL5G3N1:getCurAttributes" />
+			<WL5G3N0:output message="WL5G3N1:getCurAttributesResponse" />
+			<WL5G3N0:fault message="WL5G3N1:CURGatewaySystemException"
+				name="CURGatewaySystemException" />
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="modifyCURAttributes">
+			<WL5G3N0:input message="WL5G3N1:modifyCURAttributes" />
+			<WL5G3N0:output message="WL5G3N1:modifyCURAttributesResponse" />
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="refreshAllPools">
+			<WL5G3N0:input message="WL5G3N1:refreshAllPools" />
+			<WL5G3N0:output message="WL5G3N1:refreshAllPoolsResponse" />
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="refreshProfPool">
+			<WL5G3N0:input message="WL5G3N1:refreshProfPool" />
+			<WL5G3N0:output message="WL5G3N1:refreshProfPoolResponse" />
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="refreshAuthPool">
+			<WL5G3N0:input message="WL5G3N1:refreshAuthPool" />
+			<WL5G3N0:output message="WL5G3N1:refreshAuthPoolResponse" />
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="refreshIdvPool">
+			<WL5G3N0:input message="WL5G3N1:refreshIdvPool" />
+			<WL5G3N0:output message="WL5G3N1:refreshIdvPoolResponse" />
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="createCURObject">
+			<WL5G3N0:input message="WL5G3N1:createCURObject" />
+			<WL5G3N0:output message="WL5G3N1:createCURObjectResponse" />
+			<WL5G3N0:fault message="WL5G3N1:CURGatewaySystemException"
+				name="CURGatewaySystemException" />
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="deleteCURObject">
+			<WL5G3N0:input message="WL5G3N1:deleteCURObject" />
+			<WL5G3N0:output message="WL5G3N1:deleteCURObjectResponse" />
+			<WL5G3N0:fault message="WL5G3N1:CURGatewaySystemException"
+				name="CURGatewaySystemException" />
+		</WL5G3N0:operation>
+	</WL5G3N0:portType>
+	<WL5G3N0:binding name="GenericCURGatewayWSPortPortBinding"
+		type="WL5G3N1:GenericCURGatewayWSPort">
+		<WL5G3N2:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<WL5G3N0:operation name="getCurAttributes">
+			<WL5G3N2:operation />
+			<WL5G3N0:input>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:input>
+			<WL5G3N0:output>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:output>
+			<WL5G3N0:fault name="CURGatewaySystemException">
+				<WL5G3N2:fault name="CURGatewaySystemException" use="literal" />
+			</WL5G3N0:fault>
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="modifyCURAttributes">
+			<WL5G3N2:operation />
+			<WL5G3N0:input>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:input>
+			<WL5G3N0:output>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:output>
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="refreshAllPools">
+			<WL5G3N2:operation />
+			<WL5G3N0:input>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:input>
+			<WL5G3N0:output>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:output>
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="refreshProfPool">
+			<WL5G3N2:operation />
+			<WL5G3N0:input>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:input>
+			<WL5G3N0:output>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:output>
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="refreshAuthPool">
+			<WL5G3N2:operation />
+			<WL5G3N0:input>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:input>
+			<WL5G3N0:output>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:output>
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="refreshIdvPool">
+			<WL5G3N2:operation />
+			<WL5G3N0:input>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:input>
+			<WL5G3N0:output>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:output>
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="createCURObject">
+			<WL5G3N2:operation />
+			<WL5G3N0:input>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:input>
+			<WL5G3N0:output>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:output>
+			<WL5G3N0:fault name="CURGatewaySystemException">
+				<WL5G3N2:fault name="CURGatewaySystemException" use="literal" />
+			</WL5G3N0:fault>
+		</WL5G3N0:operation>
+		<WL5G3N0:operation name="deleteCURObject">
+			<WL5G3N2:operation />
+			<WL5G3N0:input>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:input>
+			<WL5G3N0:output>
+				<WL5G3N2:body use="literal" />
+			</WL5G3N0:output>
+			<WL5G3N0:fault name="CURGatewaySystemException">
+				<WL5G3N2:fault name="CURGatewaySystemException" use="literal" />
+			</WL5G3N0:fault>
+		</WL5G3N0:operation>
+	</WL5G3N0:binding>
+	<WL5G3N0:service name="GenericCURGatewayWSPortPortBindingQSService">
+		<WL5G3N0:port binding="WL5G3N1:GenericCURGatewayWSPortPortBinding"
+			name="GenericCURGatewayWSPortPortBindingQSPort">
+			<WL5G3N2:address
+				location="http://10.102.217.106:8009/CURGW/GenericCURGatewayWS" />
+		</WL5G3N0:port>
+	</WL5G3N0:service>
+</WL5G3N0:definitions>

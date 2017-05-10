@@ -1,0 +1,30 @@
+<configuration>
+    <property name="LOG_PATH" value="log/application.log" />
+    
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender"> 
+     <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+     <encoder>
+	     <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+	  </encoder>
+	</appender>
+
+  
+   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${LOG_PATH}</file>
+      <append>true</append>
+      <encoder>
+         <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+      </encoder>
+   </appender>
+   <appender name="STASH" class="net.logstash.logback.appender.LogstashSocketAppender">
+	 <host>54.208.170.219</host>
+	 <port>25826</port>
+     <customFields>{"appname":"eureka-netflix"}</customFields> 
+   	</appender>
+
+    <root level="info">
+         <appender-ref ref="FILE"/>
+<!--          <appender-ref ref="STASH"/> -->
+         <appender-ref ref="consoleAppender"/>
+    </root>
+</configuration>
