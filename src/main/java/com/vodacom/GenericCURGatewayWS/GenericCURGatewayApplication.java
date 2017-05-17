@@ -32,7 +32,7 @@ public class GenericCURGatewayApplication {
 		SpringApplication.run(GenericCURGatewayApplication.class, args);
 	}
 	@Bean
-	public Docket newAPIChargeCode() {
+	public Docket newAPICURGateway() {
 	        return new Docket(DocumentationType.SWAGGER_2)
 	        .groupName("processCURQuery").apiInfo(apiInfo()).select().paths(regex("/curportalbalances.*")).build();
 	                 

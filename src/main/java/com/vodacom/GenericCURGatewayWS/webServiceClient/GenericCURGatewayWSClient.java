@@ -37,12 +37,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import GenericCURGatewayWS.wsdl.AdapterRequest;
-import GenericCURGatewayWS.wsdl.CURAttribute;
-import GenericCURGatewayWS.wsdl.CURAttributes;
-import GenericCURGatewayWS.wsdl.CURAttributesRequest;
-import GenericCURGatewayWS.wsdl.GetCurAttributes;
-import GenericCURGatewayWS.wsdl.GetCurAttributesResponse;
+import com.vodacom.GenericCURGatewayWS.domain.AdapterRequest;
+import com.vodacom.GenericCURGatewayWS.domain.CURAttribute;
+import com.vodacom.GenericCURGatewayWS.domain.CURAttributes;
+import com.vodacom.GenericCURGatewayWS.domain.CURAttributesRequest;
+import com.vodacom.GenericCURGatewayWS.domain.GetCurAttributes;
+import com.vodacom.GenericCURGatewayWS.domain.GetCurAttributesResponse;
 
 @SpringBootApplication
 @Configuration
@@ -55,15 +55,14 @@ public class GenericCURGatewayWSClient{
 	
 	
 	public GetCurAttributesResponse getCURAttributes(GetCurAttributes getCurAttributes) {
-		log.info("Inside GenericCURGatewayWSClient  getCURAttributes ::" + getCurAttributes.toString());
+		log.debug("Inside GenericCURGatewayWSClient  getCURAttributes ::" + getCurAttributes.toString());
 		GetCurAttributesResponse curAttributesResponse = null;
 		
 
 		
 		try {
 
-			log.info("WSDL URL::" + wsdlURL);
-			wsdlURL = "http://localhost:8088/CURGW/GenericCURGatewayWS?WSDL";
+			log.debug("WSDL URL::" + wsdlURL);
 			curAttributesResponse = callwsWS(getCurAttributes, wsdlURL);
 			
 
@@ -82,7 +81,7 @@ public class GenericCURGatewayWSClient{
 			SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 
 			SOAPMessage soapResponse = soapConnection.call(createSOAPRequest(getCurAttributes), url);
-			log.info("soapResponse::" + soapResponse.toString());
+			log.debug("soapResponse::" + soapResponse.toString());
 			response = printSOAPResponse(soapResponse);
 			soapConnection.close();
 		} catch (Exception e) {
@@ -97,25 +96,18 @@ public class GenericCURGatewayWSClient{
 		//CURAttributesRequest curAttributesRequest = new CURAttributesRequest();
 		SOAPMessage soapMessage = null;
 		try {
-			/*curAttributesRequest.setQueryString(queryString);
-			GetCurAttributes getCurAttributes = new GetCurAttributes();
-			getCurAttributes.setCurAttributesRequest(curAttributesRequest);
-			*/
-			log.info("Inside GenericCURGatewayWSClient  curAttributesRequest ::" + getCurAttributes.getCurAttributesRequest().toString());
-			log.info("Inside GenericCURGatewayWSClient  curAttributesRequest ::" + getCurAttributes.getCurAttributesRequest().getQueryString());
+			log.debug("Inside GenericCURGatewayWSClient  curAttributesRequest ::" + getCurAttributes.getCurAttributesRequest().getQueryString());
 			JAXBContext jaxbContext = JAXBContext.newInstance(GetCurAttributes.class,CURAttributesRequest.class, AdapterRequest.class,java.util.LinkedHashMap.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			jaxbMarshaller.setProperty("jaxb.fragment",true);
-			//jaxbMarshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "net.voda.io "+" net.voda.curgw.io ");
 			QName qName = new QName("http://www.vodacom.co.za/", "getCurAttributes", "vod");
 			JAXBElement<GetCurAttributes> root = new JAXBElement<>(qName, GetCurAttributes.class, getCurAttributes);
-			//JAXBElement<CURAttributesRequest> root = new JAXBElement<>(qName, CURAttributesRequest.class, getCurAttributes.getCurAttributesRequest());
-			log.info("JAXBElement ::" + root.getDeclaredType());
+			log.debug("JAXBElement ::" + root.getDeclaredType());
 			jaxbMarshaller.marshal(root, stringWriter);
 
-			log.info("Request xml after marshalling ::" + stringWriter.toString());
+			log.debug("Request xml after marshalling ::" + stringWriter.toString());
 			soapMessage = MessageFactory.newInstance().createMessage();
 			SOAPPart part = soapMessage.getSOAPPart();
 			SOAPEnvelope env = part.getEnvelope();
@@ -126,13 +118,13 @@ public class GenericCURGatewayWSClient{
 			Document doc = convertStringToDocument(stringWriter.toString());
 			body.addDocument(doc);
 
-			log.info("added raw xml::" + doc.getTextContent());
+			log.debug("added raw xml::" + doc.getTextContent());
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			soapMessage.writeTo(outputStream);
 
 			String output = new String(outputStream.toByteArray());
-			log.info("output xml::" + output);
+			log.debug("output xml::" + output);
 		} catch (Exception e) {
 			System.err.println("Error occurred while sending SOAP Request to Server");
 			e.printStackTrace();
@@ -147,19 +139,19 @@ public class GenericCURGatewayWSClient{
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		Source sourceContent = soapResponse.getSOAPPart().getContent();
-		log.info("sourceContent::" + sourceContent);
+		log.debug("sourceContent::" + sourceContent);
 		StreamResult result = new StreamResult(sw);
 		transformer.transform(sourceContent, result);
 		
 		Document xmldoc = convertStringToDocument(sw.toString());
-		log.info("xmldoc ::" + convertDocumentToString(xmldoc));
-		log.info("xmldoc elements::" + xmldoc.getTextContent());
+		log.debug("xmldoc ::" + convertDocumentToString(xmldoc));
+		log.debug("xmldoc elements::" + xmldoc.getTextContent());
 		NodeList  nodeList =  xmldoc.getElementsByTagNameNS("http://www.vodacom.co.za/", "*");
-		log.info("xmldoc elements::" + nodeList.getLength());
+		log.debug("xmldoc elements::" + nodeList.getLength());
 		if(null!=nodeList && null!= nodeList.item(0)){	
-			log.info("nodeList::" + nodeList.item(0));
+			log.debug("nodeList::" + nodeList.item(0));
 			Node bodyContent =  nodeList.item(0);
-			log.info("\n bodyContent = \n" + bodyContent.getTextContent());		
+			log.debug("\n bodyContent = \n" + bodyContent.getTextContent());		
 			
 			Unmarshaller unmarshaller = JAXBContext.newInstance(GetCurAttributesResponse.class).createUnmarshaller();
 			JAXBElement<GetCurAttributesResponse> root =unmarshaller.unmarshal(bodyContent,GetCurAttributesResponse.class);
@@ -171,11 +163,11 @@ public class GenericCURGatewayWSClient{
 					while(itr.hasNext()){
 						CURAttribute attribute = itr.next();
 						if(null!=attribute){
-							log.info("attribute.key ::" + attribute.getKeyName());
-							log.info("attribute.value ::" + attribute.getKeyValue());
+							log.debug("attribute.key ::" + attribute.getKeyName());
+							log.debug("attribute.value ::" + attribute.getKeyValue());
 						}
 					}
-					log.info("GetCurAttributesResponse::" + curAttributesResponse.getReturn());
+					log.debug("GetCurAttributesResponse::" + curAttributesResponse.getReturn());
 				}
 			}
 		}
@@ -189,12 +181,12 @@ public class GenericCURGatewayWSClient{
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setNamespaceAware(true);
 			builder = factory.newDocumentBuilder();
-			log.info("xmlStr ::" + xmlStr.toString()); 
+			log.debug("xmlStr ::" + xmlStr.toString()); 
 			InputSource is = new InputSource();
 		    is.setCharacterStream(new StringReader(xmlStr));
-			log.info("is ::"+ is.toString());
+			log.debug("is ::"+ is.toString());
 			Document doc = builder.parse(is);
-			log.info("doc::" + doc.getTextContent());
+			log.debug("doc::" + doc.getTextContent());
 			return doc;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -204,12 +196,10 @@ public class GenericCURGatewayWSClient{
 	
 	private static String convertDocumentToString(Document doc) {
         TransformerFactory tf = TransformerFactory.newInstance();
+        StringWriter writer = new StringWriter();
         Transformer transformer;
         try {
             transformer = tf.newTransformer();
-            // below code to remove XML declaration
-            // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-            StringWriter writer = new StringWriter();
             transformer.transform(new DOMSource(doc), new StreamResult(writer));
             String output = writer.getBuffer().toString();
             return output;

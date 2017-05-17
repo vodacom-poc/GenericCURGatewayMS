@@ -1,7 +1,7 @@
 package com.vodacom.GenericCURGatewayWS.service;
 
-import GenericCURGatewayWS.wsdl.GetCurAttributes;
-import GenericCURGatewayWS.wsdl.GetCurAttributesResponse;
+import com.vodacom.GenericCURGatewayWS.domain.GetCurAttributes;
+import com.vodacom.GenericCURGatewayWS.domain.GetCurAttributesResponse;
 
 //@SpringBootApplication
 //@FeignClient(name = "GENERICCURGatewayWS")
