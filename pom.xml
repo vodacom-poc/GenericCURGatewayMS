@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.vodacom.balanceEnquiry</groupId>
-	<artifactId>GenericCURGatewayWS</artifactId>
-	<version>0.0.1</version>
+	<groupId>com.vodacom.GenericCURGatewayWS</groupId>
+	<artifactId>curgatewayms</artifactId>
+	<version>0.1</version>
 	<packaging>jar</packaging>
 
-	<name>vodacomBalanceEnquiry</name>
-	<description>vodacom Balance Enquiry PoC</description>
+	<name>GenericCURGatewayWS</name>
+	<description>Get Subscriber Type</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -25,6 +25,7 @@
 		<jackson.version>2.8.5</jackson.version>
 		<spring.cloud.version>1.3.0.RELEASE</spring.cloud.version>
 		<ch.qos.logback.version>1.1.6</ch.qos.logback.version>
+		<docker.image.prefix>dockerhub.accenture.com/vodacom_poc</docker.image.prefix>
 	</properties>
 
 	<dependencies>
