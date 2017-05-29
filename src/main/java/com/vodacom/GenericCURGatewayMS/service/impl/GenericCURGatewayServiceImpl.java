@@ -18,7 +18,7 @@ public class GenericCURGatewayServiceImpl implements GenericCURGatewayService {
 	GenericCURGatewayWSClient genericCURGatewayWSClient;
 
 	public GetCurAttributesResponse processCURQuery(GetCurAttributes getCurAttributes){
-		log.info("Inside VodacomBalanceEnquiryServiceImpl  getSubscriptionBalance request Params::" + getCurAttributes.toString());
+		log.info("Inside GenericCURGatewayServiceImpl  processCURQuery request Params::" + getCurAttributes.toString());
 		GetCurAttributesResponse curResponse = genericCURGatewayWSClient.getCURAttributes(getCurAttributes);
 		return curResponse;
 	}

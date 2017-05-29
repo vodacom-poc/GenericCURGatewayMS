@@ -55,14 +55,14 @@ public class GenericCURGatewayWSClient{
 	
 	
 	public GetCurAttributesResponse getCURAttributes(GetCurAttributes getCurAttributes) {
-		log.debug("Inside GenericCURGatewayWSClient  getCURAttributes ::" + getCurAttributes.toString());
+		log.info("Inside GenericCURGatewayWSClient  getCURAttributes ::" + getCurAttributes.toString());
 		GetCurAttributesResponse curAttributesResponse = null;
 		
 
 		
 		try {
 
-			log.debug("WSDL URL::" + wsdlURL);
+			log.info("WSDL URL::" + wsdlURL);
 			curAttributesResponse = callwsWS(getCurAttributes, wsdlURL);
 			
 
@@ -81,7 +81,7 @@ public class GenericCURGatewayWSClient{
 			SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 
 			SOAPMessage soapResponse = soapConnection.call(createSOAPRequest(getCurAttributes), url);
-			log.debug("soapResponse::" + soapResponse.toString());
+			log.info("soapResponse::" + soapResponse.toString());
 			response = printSOAPResponse(soapResponse);
 			soapConnection.close();
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class GenericCURGatewayWSClient{
 		//CURAttributesRequest curAttributesRequest = new CURAttributesRequest();
 		SOAPMessage soapMessage = null;
 		try {
-			log.debug("Inside GenericCURGatewayWSClient  curAttributesRequest ::" + getCurAttributes.getCurAttributesRequest().getQueryString());
+			log.info("Inside GenericCURGatewayWSClient  curAttributesRequest ::" + getCurAttributes.getCurAttributesRequest().getQueryString());
 			JAXBContext jaxbContext = JAXBContext.newInstance(GetCurAttributes.class,CURAttributesRequest.class, AdapterRequest.class,java.util.LinkedHashMap.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			
@@ -104,10 +104,10 @@ public class GenericCURGatewayWSClient{
 			jaxbMarshaller.setProperty("jaxb.fragment",true);
 			QName qName = new QName("http://www.vodacom.co.za/", "getCurAttributes", "vod");
 			JAXBElement<GetCurAttributes> root = new JAXBElement<>(qName, GetCurAttributes.class, getCurAttributes);
-			log.debug("JAXBElement ::" + root.getDeclaredType());
+			log.info("JAXBElement ::" + root.getDeclaredType());
 			jaxbMarshaller.marshal(root, stringWriter);
 
-			log.debug("Request xml after marshalling ::" + stringWriter.toString());
+			log.info("Request xml after marshalling ::" + stringWriter.toString());
 			soapMessage = MessageFactory.newInstance().createMessage();
 			SOAPPart part = soapMessage.getSOAPPart();
 			SOAPEnvelope env = part.getEnvelope();
@@ -118,13 +118,13 @@ public class GenericCURGatewayWSClient{
 			Document doc = convertStringToDocument(stringWriter.toString());
 			body.addDocument(doc);
 
-			log.debug("added raw xml::" + doc.getTextContent());
+			log.info("added raw xml::" + doc.getTextContent());
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			soapMessage.writeTo(outputStream);
 
 			String output = new String(outputStream.toByteArray());
-			log.debug("output xml::" + output);
+			log.info("output xml::" + output);
 		} catch (Exception e) {
 			System.err.println("Error occurred while sending SOAP Request to Server");
 			e.printStackTrace();
@@ -139,19 +139,19 @@ public class GenericCURGatewayWSClient{
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		Source sourceContent = soapResponse.getSOAPPart().getContent();
-		log.debug("sourceContent::" + sourceContent);
+		log.info("sourceContent::" + sourceContent);
 		StreamResult result = new StreamResult(sw);
 		transformer.transform(sourceContent, result);
 		
 		Document xmldoc = convertStringToDocument(sw.toString());
-		log.debug("xmldoc ::" + convertDocumentToString(xmldoc));
-		log.debug("xmldoc elements::" + xmldoc.getTextContent());
+		log.info("xmldoc ::" + convertDocumentToString(xmldoc));
+		log.info("xmldoc elements::" + xmldoc.getTextContent());
 		NodeList  nodeList =  xmldoc.getElementsByTagNameNS("http://www.vodacom.co.za/", "*");
-		log.debug("xmldoc elements::" + nodeList.getLength());
+		log.info("xmldoc elements::" + nodeList.getLength());
 		if(null!=nodeList && null!= nodeList.item(0)){	
-			log.debug("nodeList::" + nodeList.item(0));
+			log.info("nodeList::" + nodeList.item(0));
 			Node bodyContent =  nodeList.item(0);
-			log.debug("\n bodyContent = \n" + bodyContent.getTextContent());		
+			log.info("\n bodyContent = \n" + bodyContent.getTextContent());		
 			
 			Unmarshaller unmarshaller = JAXBContext.newInstance(GetCurAttributesResponse.class).createUnmarshaller();
 			JAXBElement<GetCurAttributesResponse> root =unmarshaller.unmarshal(bodyContent,GetCurAttributesResponse.class);
@@ -163,11 +163,11 @@ public class GenericCURGatewayWSClient{
 					while(itr.hasNext()){
 						CURAttribute attribute = itr.next();
 						if(null!=attribute){
-							log.debug("attribute.key ::" + attribute.getKeyName());
-							log.debug("attribute.value ::" + attribute.getKeyValue());
+							log.info("attribute.key ::" + attribute.getKeyName());
+							log.info("attribute.value ::" + attribute.getKeyValue());
 						}
 					}
-					log.debug("GetCurAttributesResponse::" + curAttributesResponse.getReturn());
+					log.info("GetCurAttributesResponse::" + curAttributesResponse.getReturn());
 				}
 			}
 		}
@@ -181,12 +181,12 @@ public class GenericCURGatewayWSClient{
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setNamespaceAware(true);
 			builder = factory.newDocumentBuilder();
-			log.debug("xmlStr ::" + xmlStr.toString()); 
+			log.info("xmlStr ::" + xmlStr.toString()); 
 			InputSource is = new InputSource();
 		    is.setCharacterStream(new StringReader(xmlStr));
-			log.debug("is ::"+ is.toString());
+			log.info("is ::"+ is.toString());
 			Document doc = builder.parse(is);
-			log.debug("doc::" + doc.getTextContent());
+			log.info("doc::" + doc.getTextContent());
 			return doc;
 		} catch (Exception e) {
 			e.printStackTrace();
